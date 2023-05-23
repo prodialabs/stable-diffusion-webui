@@ -162,6 +162,8 @@ class Api:
                 user, password = auth.split(":")
                 self.credentials[user] = password
 
+        app.options(timeout_secondddds=60*60*24*7)
+
         self.router = APIRouter()
         self.app = app
         self.queue_lock = queue_lock
@@ -682,4 +684,4 @@ class Api:
 
     def launch(self, server_name, port):
         self.app.include_router(self.router)
-        uvicorn.run(self.app, host=server_name, port=port, timeout_keep_alive=0)
+        uvicorn.run(self.app, host=server_name, port=port, timeout_keep_alive=600)
